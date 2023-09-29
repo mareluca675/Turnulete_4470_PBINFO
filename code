@@ -1,0 +1,71 @@
+#include <iostream>
+
+using namespace std;
+
+int long long n, x[100001], k, y[100001], i, dr, st, mij, nr = 0;
+
+int main()
+{
+    cin >> n;
+    
+    for(i = 1; i <= n; i++)
+    {
+        cin >> x[i];
+    }
+    
+    cin >> k;
+    for(i = 1; i <= k; i++)
+    {
+        cin >> y[i];
+        
+        dr = n;
+        st = 1;
+        bool ok = 0;
+        
+        while(st <= dr)
+        {
+            mij = (dr + st) / 2;
+            
+            if(x[mij] == y[i])
+            {
+                int copiemij = mij;
+                st = mij;
+                dr = mij;
+                
+                while(x[mij] == x[mij - 1])
+                {
+                    mij--;
+                    st = mij;
+                }
+                mij = copiemij;
+                
+                while(x[mij] == x[mij + 1])
+                {
+                    mij++;
+                    dr = mij;
+                }
+                mij = copiemij;
+                
+                cout << (dr - st + 1) * y[i] << " ";
+                ok = 1;
+                break;
+                
+            }
+            else if(x[mij] > y[i])
+            {
+                dr = mij - 1;
+            }
+            else
+            {
+                st = mij + 1;
+            }
+        }
+        if(ok == 0)
+        {
+            cout << 0 << " ";
+        }
+        
+    }
+
+    return 0;
+}
